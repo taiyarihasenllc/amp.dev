@@ -76,14 +76,15 @@ author:
         position: relative;
         top: -60px;
       }
-      
+
       #carousel-sample p {
         margin-left: 16px;
       }
 
       #carousel-button {
         top: -100px;
-        
+       }
+
       #live-blog-start {
         margin-top: 0;
       }
@@ -195,11 +196,11 @@ author:
       <amp-script layout="container" script="multi-fetch-script" class="sample">
         <button id="multi-fetch">How slow is our API?</button>
       </amp-script>
-      <script id="multi-fetch-script" type="text/plain" target="amp-script">    
+      <script id="multi-fetch-script" type="text/plain" target="amp-script">
         const randomTime = () =>  Math.floor(Math.random() * 10) + 5;
-    
+
         const button = document.getElementById('multi-fetch');
-        
+
         function tripleFetch() {
           for (let i =0; i < 3; i++) {
             fetch('<% hosts.platform %>/documentation/examples/api/slow-text?delay=' + randomTime())
@@ -207,13 +208,13 @@ author:
               .then(insertText);
           }
         }
-    
+
         function insertText(text) {
           const div = document.createElement('div');
           div.textContent = text;
           document.body.appendChild(div);
         }
-    
+
         button.addEventListener('click', tripleFetch);
       </script>
     </div>
@@ -227,27 +228,27 @@ author:
         <button id="live-blog-start">Start live blog</button>
         <div id="live-blog-area"></div>
       </amp-script>
-  
+
       <script id="live-blog-script" type="text/plain" target="amp-script">
         const button = document.getElementById('live-blog-start');
         const blogDiv = document.getElementById('live-blog-area');
-  
+
         button.addEventListener("click", () => {
           button.setAttribute('disabled', '');
           button.textContent = 'Live blog begun';
           const socket = new WebSocket('<% hosts.websocket %>/documentation/examples/api/socket/live-blog');
-          
+
           socket.onmessage = event => {
             let newDiv = document.createElement('div');
             let time = new Date().toLocaleTimeString();
             newDiv.innerHTML = `<span class="time">${time}: </span><span>${event.data}</span>`;
             blogDiv.appendChild(newDiv);
-          };        
-        });      
+          };
+        });
       </script>
     </div>
 
-    <!-- 
+    <!--
         ## Showing live data
 
         You can also use `setInterval()` or `setTimeout` to get fresh data.
@@ -299,7 +300,7 @@ author:
     </div>
     <!--
         ## Detecting the operating system
-        Your script has access to global objects like `navigator`. This script uses this object to try to guess your device's operating system. 
+        Your script has access to global objects like `navigator`. This script uses this object to try to guess your device's operating system.
     -->
     <div>
       <amp-script layout="fixed-height" height="36" script="user-agent-script" class="sample">
@@ -318,7 +319,7 @@ author:
                 macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
                 windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
                 iosPlatforms = ['iPhone', 'iPad', 'iPod'];
-        
+
           if (macosPlatforms.includes(platform)) {
             return 'Mac OS';
           } else if (iosPlatforms.includes(platform)) {
@@ -330,7 +331,7 @@ author:
           } else if (/Linux/.test(platform)) {
             return 'Linux';
           }
-        
+
           return 'Unknown';
         }
 
@@ -349,7 +350,7 @@ author:
         class="sample">
         <h2 id="translated-greeting"></h2>
       </amp-script>
-  
+
       <script id="translation-script" type="text/plain" target="amp-script">
         const translationMap = {
           'en': 'Hello',
@@ -359,7 +360,7 @@ author:
           'zh': '你好',
           'pr': 'Olá'
         };
-  
+
         const lang = navigator.language.slice(0, 2);
         const translation = translationMap[lang];
         if (!translation) {
@@ -420,9 +421,9 @@ author:
         <amp-img src="<% hosts.platform %>/static/inline-examples/images/image1.jpg" layout="responsive" width="450" height="300"></amp-img>
         <amp-img src="<% hosts.platform %>/static/inline-examples/images/image2.jpg" layout="responsive" width="450" height="300"></amp-img>
         <amp-img src="<% hosts.platform %>/static/inline-examples/images/image3.jpg" layout="responsive" width="450" height="300"></amp-img>
-      </amp-carousel> 
+      </amp-carousel>
       <p>Slide <span [text]="slideIndex + 1">1</span> of 3</p>
-      
+
       <amp-script layout="container" script="carousel-script" class="sample">
         <button id="carousel-button" class="fruit-button">Surprise me</button>
       </amp-script>
@@ -437,6 +438,6 @@ author:
 
         button.addEventListener('click', gotoRandomSlide);
       </script>
-    </div>  
+    </div>
   </body>
 </html>
